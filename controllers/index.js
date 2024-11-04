@@ -5,7 +5,7 @@ exports.createAssistant = async (req, res) => {
     const assistant = await openai.beta.assistants.create({
       name: 'Summarizer',
       description: 'A text Summarizer',
-      model: 'gpt-4-1106-preview',
+      model: 'gpt-4o-mini',
       instructions: 'You are an assistant that summarizes text.',
       tools: [],
     });
@@ -63,7 +63,9 @@ exports.converse = async (req, res) => {
           threadId,
           messageId,
         );
-        return res.status(201).json({ data: assistantResponse.content[0].text.value });
+        return res
+          .status(201)
+          .json({ data: assistantResponse.content[0].text.value });
       }
     }
     res.status(500).json({ error: 'Failed to converse with assistant' });
